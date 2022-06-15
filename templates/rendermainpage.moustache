@@ -1,0 +1,5 @@
+<div>
+    <form>
+        <input type="text" class="w-100" placeholder="Тут будет поиск"></input>
+    </form>
+</div>

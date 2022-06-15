@@ -1,0 +1,51 @@
+/*.nlrsbook_ilim_grid {
+    
+}
+
+.nlrsbook_ilim_card {
+    margin-bottom: 15px;
+}
+.nlrsbook_ilim_card__img {
+    background-color: #dedede;
+    border-radius: 4px;
+    border: 0px solid ;
+    width: 100%;
+}
+.nlrsbook_ilim_card__btn, .nlrsbook_ilim_card__btn:hover, .nlrsbook_ilim_card__btn:focus {
+    outline: none;
+}
+.nlrsbook_ilim_card__title {
+    color: #0f4c81;
+    align-self: flex-start;
+    display: block;
+    display: -webkit-box;
+    max-height: 3.375rem;
+    font-size: 1.125rem;
+    line-height: 1.5;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    width: 100%;
+    font-size: 12px;
+}
+.nlrsbook_ilim_card__author {
+    color: #4f4f4f;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    font-size: 12px;
+}
+
+.nlrsbook_ilim_pagination > ul > .page-item {
+    cursor: pointer;
+}
+.nlrsbook_ilim_pagination > ul > .page-item.disabled, .nlrsbook_ilim_pagination > ul > .page-item.active {
+    cursor: default;
+}
+.nlrsbook_ilim_pagination > ul {
+    margin-left: 0px;
+    margin-right: 0px;
+}*/
