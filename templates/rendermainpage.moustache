@@ -5,6 +5,12 @@
 .ecsb-eps-search-logo-wrapper {
     display: none;
 }
+.ecsb-eps-search-panel {
+    margin-left: 0 !important;
+}
+.searchPillsDesktop {
+    margin-top: 24px;
+}
 </style>
 
 <div>
