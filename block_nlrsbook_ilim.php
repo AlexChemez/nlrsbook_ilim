@@ -13,7 +13,8 @@ class block_nlrsbook_ilim extends block_base {
         }
 
         $mainPage = file_get_contents($CFG->dirroot . "/blocks/nlrsbook_ilim/templates/rendermainpage.moustache");
-        
+        $mainPage = str_replace('{{ $searchUrl }}', $CFG->wwwroot.'/blocks/nlrsbook_ilim/search.php', $mainPage);
+
         $this->content = new stdClass;
         $this->content->text  = $mainPage;
 
