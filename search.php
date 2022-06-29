@@ -111,6 +111,9 @@ $template = <<<XML
   data-efed-viewer-url="$online2Url"
   data-efed-viewer-url-book-id-placement="path"
   data-ui-primary-color="#0f6cbf"
+  data-seamless-auth-user-id="$nlrsUserId"
+  data-seamless-auth-signature="$seamlessAuthSignature"
+  data-show-shelf-buttons="1"
 ></script>
 <script>
     // qweзапуск работы поискового интерфейса
