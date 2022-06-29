@@ -22,8 +22,7 @@
   data-id="ecsb-eps-efed-script"
   data-partner-id="1"
   data-eps-search-results-url="{{ $searchUrl }}"
-  data-efed-viewer-url="https://new.nlrs.ru/open"
-  data-efed-viewer-url-book-id-placement="path"
+  data-efed-viewer-url=""
   data-ui-primary-color="#0f6cbf"
 ></script>
 <script>

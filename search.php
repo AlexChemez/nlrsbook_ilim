@@ -59,13 +59,19 @@ $PAGE->set_pagelayout('standard');
 
 
 
+$nlrsUserId = 48059; // TODO: получать из токена
+$seamlessAuthSignature = 'y3Mz2ahGpv7GMLGttHZ7PBTsfDaHtmPX'; // TODO: реализовать генерацию подписи, пока стоит временная заглушка
+$baseUrl = "https://e.nlrs.ru/seamless-auth-redirect?seamlessAuthUserId=${nlrsUserId}&seamlessAuthSignature=${seamlessAuthSignature}";
+
+$online2Url = "${baseUrl}&override_redirect=https%3A%2F%2Fe.nlrs.ru%2Fonline2";
+
 
 // global $CFG;
 // die($CFG->wwwroot);
 
 
 
-
+$searchUrl = $CFG->wwwroot.'/blocks/nlrsbook_ilim/search.php';
 
 $template = <<<XML
 
@@ -83,6 +89,10 @@ $template = <<<XML
 	}
 }
 
+.ecsb-eps-doc-button-order {
+	display: none !important;
+}
+
 </style>
 
 <div class="main-inner">
@@ -97,18 +107,19 @@ $template = <<<XML
   src="https://new.nlrs.ru/ecsb-example/dist/script.js"
   data-id="ecsb-eps-efed-script"
   data-partner-id="1"
-  data-eps-search-results-url="{{ $searchUrl }}"
-  data-efed-viewer-url="https://new.nlrs.ru/open"
+  data-eps-search-results-url="$searchUrl"
+  data-efed-viewer-url="$online2Url"
   data-efed-viewer-url-book-id-placement="path"
   data-ui-primary-color="#0f6cbf"
 ></script>
 <script>
-    // запуск работы поискового интерфейса
+    // qweзапуск работы поискового интерфейса
     ecsbEpsEfed.renderSearchUI();
 </script>
 XML;
 
-$template = str_replace('{{ $searchUrl }}', $CFG->wwwroot.'/blocks/nlrsbook_ilim/search.php', $template);
+// $template = str_replace('{{ $searchUrl }}', $CFG->wwwroot.'/blocks/nlrsbook_ilim/search.php', $template);
+// $template = str_replace('{{ $online2Url }}', $online2Url, $template);
 
 
 echo $OUTPUT->header();
