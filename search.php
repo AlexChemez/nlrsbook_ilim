@@ -3,6 +3,12 @@
 // die('d');
 
 require(__DIR__ . '/../../config.php');
+
+require_once($CFG->dirroot . "/blocks/nlrsbook_auth/Query.php");
+use App\Querys\Query;
+$seamlessAuthOrgId = 1;
+
+
 // require_once(__DIR__ . '/lib.php');
 
 // global $CFG;
@@ -59,7 +65,7 @@ $PAGE->set_pagelayout('standard');
 
 
 
-$nlrsUserId = 48059; // TODO: получать из токена
+$seamlessAuthUserId = 48059; // TODO: получать из токена
 $seamlessAuthSignature = 'y3Mz2ahGpv7GMLGttHZ7PBTsfDaHtmPX'; // TODO: реализовать генерацию подписи, пока стоит временная заглушка
 $baseUrl = "https://e.nlrs.ru/seamless-auth-redirect?seamlessAuthUserId=${nlrsUserId}&seamlessAuthSignature=${seamlessAuthSignature}";
 
@@ -69,7 +75,11 @@ $online2Url = "${baseUrl}&override_redirect=https%3A%2F%2Fe.nlrs.ru%2Fonline2";
 // global $CFG;
 // die($CFG->wwwroot);
 
-
+$secret = get_config('nlrsbook_auth', 'org_private_key'); // Секретный ключ организации
+$seamlessAuthSignature = Query::generateServerApiRequestSignature([
+    'orgId' => $seamlessAuthOrgId,
+    'userId' => $seamlessAuthUserId,
+], $secret);
 
 $searchUrl = $CFG->wwwroot.'/blocks/nlrsbook_ilim/search.php';
 
@@ -111,9 +121,11 @@ $template = <<<XML
   data-efed-viewer-url="$online2Url"
   data-efed-viewer-url-book-id-placement="path"
   data-ui-primary-color="#0f6cbf"
-  data-seamless-auth-user-id="$nlrsUserId"
+  data-seamless-auth-org-id="$seamlessAuthOrgId"
+  data-seamless-auth-user-id="$seamlessAuthUserId"
   data-seamless-auth-signature="$seamlessAuthSignature"
   data-show-shelf-buttons="1"
+  data-secret="$secret"
 ></script>
 <script>
     // qweзапуск работы поискового интерфейса
