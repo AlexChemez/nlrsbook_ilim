@@ -21,10 +21,10 @@ class block_nlrsbook_ilim extends block_base {
         return $this->content;
     }
 
-/*    public function hide_header()
+    public function hide_header()
     {
         return true;
-    }*/
+    }
 
     function has_config()
     {
