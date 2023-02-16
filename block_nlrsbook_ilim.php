@@ -16,7 +16,14 @@ class block_nlrsbook_ilim extends block_base {
         $mainPage = str_replace('{{ $searchUrl }}', $CFG->wwwroot.'/blocks/nlrsbook_ilim/search.php', $mainPage);
 
         $this->content = new stdClass;
-        $this->content->text  = $mainPage;
+
+        $setting = get_config('nlrsbook_auth', 'org_private_key'); // Секретный ключ организации
+
+        if ($setting) {
+            $this->content->text = $mainPage;
+        } else {
+            $this->content->text = '<div class="alert alert-warning">Плагин не настроен. Обратитесь к администратору образовательного учреждения.</div>';
+        }
 
         return $this->content;
     }
