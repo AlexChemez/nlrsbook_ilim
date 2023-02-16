@@ -5,8 +5,8 @@
 require(__DIR__ . '/../../config.php');
 
 require_once($CFG->dirroot . "/blocks/nlrsbook_auth/Query.php");
+require_login();
 use App\Querys\Query;
-$seamlessAuthOrgId = 1;
 
 
 // require_once(__DIR__ . '/lib.php');
@@ -63,25 +63,13 @@ $PAGE->set_heading('Библиопоиск «Илим»');
 // $PAGE->set_context($modulecontext);
 $PAGE->set_pagelayout('standard');
 
-
-
-$seamlessAuthUserId = 48059; // TODO: получать из токена
-$seamlessAuthSignature = 'y3Mz2ahGpv7GMLGttHZ7PBTsfDaHtmPX'; // TODO: реализовать генерацию подписи, пока стоит временная заглушка
-$baseUrl = "https://e.nlrs.ru/seamless-auth-redirect?seamlessAuthUserId=${nlrsUserId}&seamlessAuthSignature=${seamlessAuthSignature}";
-
-$online2Url = "${baseUrl}&override_redirect=https%3A%2F%2Fe.nlrs.ru%2Fonline2";
-
-
-// global $CFG;
-// die($CFG->wwwroot);
-
-$secret = get_config('nlrsbook_auth', 'org_private_key'); // Секретный ключ организации
-$seamlessAuthSignature = Query::generateServerApiRequestSignature([
-    'orgId' => $seamlessAuthOrgId,
-    'userId' => $seamlessAuthUserId,
-], $secret);
+$seamlessAuthOrgId = 1; // TODO: брать из конфига
+$seamlessAuthUserId = Query::getSub($USER->id);
+$seamlessAuthSignature = Query::getSignature();
 
 $searchUrl = $CFG->wwwroot.'/blocks/nlrsbook_ilim/search.php';
+$online2Url = Query::getUrl("https%3A%2F%2Fe.nlrs.ru%2Fonline2");
+
 
 $template = <<<XML
 
@@ -125,7 +113,6 @@ $template = <<<XML
   data-seamless-auth-user-id="$seamlessAuthUserId"
   data-seamless-auth-signature="$seamlessAuthSignature"
   data-show-shelf-buttons="1"
-  data-secret="$secret"
 ></script>
 <script>
     // qweзапуск работы поискового интерфейса
