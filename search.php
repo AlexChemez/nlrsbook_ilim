@@ -63,13 +63,10 @@ $PAGE->set_heading('Библиопоиск «Илим»');
 // $PAGE->set_context($modulecontext);
 $PAGE->set_pagelayout('standard');
 
-$seamlessAuthOrgId = 1; // TODO: брать из конфига
-$seamlessAuthUserId = Query::getSub($USER->id);
-$seamlessAuthSignature = Query::getSignature();
-
 $searchUrl = $CFG->wwwroot.'/blocks/nlrsbook_ilim/search.php';
 $online2Url = Query::getUrl("https%3A%2F%2Fe.nlrs.ru%2Fonline2");
 
+$token = Query::getToken();
 
 $template = <<<XML
 
@@ -109,13 +106,10 @@ $template = <<<XML
   data-efed-viewer-url="$online2Url"
   data-efed-viewer-url-book-id-placement="path"
   data-ui-primary-color="#0f6cbf"
-  data-seamless-auth-org-id="$seamlessAuthOrgId"
-  data-seamless-auth-user-id="$seamlessAuthUserId"
-  data-seamless-auth-signature="$seamlessAuthSignature"
   data-show-shelf-buttons="1"
 ></script>
 <script>
-    // qweзапуск работы поискового интерфейса
+    ecsbEpsEfed.setAuthorizationHeader('Bearer $token');
     ecsbEpsEfed.renderSearchUI();
 </script>
 XML;
